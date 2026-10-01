@@ -80,7 +80,7 @@ async function loadDepartments() {
 function showSkeleton() {
     $('empty').classList.add('hidden');
     $('rows').innerHTML = Array.from({ length: 5 }, () =>
-        `<tr>${'<td><div class="skeleton"></div></td>'.repeat(5)}</tr>`).join('');
+        `<tr>${'<td><div class="skeleton"></div></td>'.repeat(6)}</tr>`).join('');
 }
 
 async function loadStudents() {
@@ -117,6 +117,10 @@ function renderRows(items) {
       <td><span class="badge" style="background:hsl(${h} 80% 50% / .13);color:hsl(${h} 65% 48%)">${esc(s.department)}</span></td>
       <td class="muted">${esc(s.phone || '—')}</td>
       <td class="muted">${fmtDate(s.enrollmentDate)}</td>
+      <td class="actions">
+        <button class="act" data-action="edit" data-id="${s.id}" title="Edit">✏️</button>
+        <button class="act danger" data-action="delete" data-id="${s.id}" data-name="${esc(s.fullName)}" title="Delete">🗑️</button>
+      </td>
     </tr>`;
     }).join('');
 }
@@ -189,17 +193,30 @@ function validate(v) {
     return e;
 }
 
-function openModal() {
+let editingId = null;
+
+function openModal(student = null) {
     $('studentForm').reset();
     clearErrors();
-    $('f_enrollmentDate').value = new Date().toISOString().slice(0, 10);
+    editingId = student ? student.id : null;
+    $('modalTitle').textContent = student ? 'Edit Student' : 'Add Student';
+    $('saveBtn').textContent = student ? 'Update student' : 'Save student';
+    if (student) {
+        fieldNames.forEach(n => {
+            let val = student[n] ?? '';
+            if (n === 'dateOfBirth' || n === 'enrollmentDate') val = String(val).slice(0, 10);
+            $('f_' + n).value = val;
+        });
+    } else {
+        $('f_enrollmentDate').value = new Date().toISOString().slice(0, 10);
+    }
     $('modal').classList.add('open');
     setTimeout(() => $('f_fullName').focus(), 150);
 }
 function closeModal() { $('modal').classList.remove('open'); }
 
-$('addBtn').onclick = openModal;
-$('emptyAddBtn').onclick = openModal;
+$('addBtn').onclick = () => openModal();
+$('emptyAddBtn').onclick = () => openModal();
 $('closeModal').onclick = closeModal;
 $('cancelBtn').onclick = closeModal;
 $('modal').onclick = e => { if (e.target === $('modal')) closeModal(); };
@@ -212,20 +229,115 @@ $('studentForm').addEventListener('submit', async ev => {
     showErrors(errs);
     if (Object.keys(errs).length) return;
 
-    $('saveBtn').disabled = true; $('saveBtn').textContent = 'Saving...';
+    const editing = editingId !== null;
+    const btn = $('saveBtn');
+    btn.disabled = true; btn.textContent = 'Saving...';
     try {
-        await api(API, { method: 'POST', body: JSON.stringify(v) });
+        if (editing) {
+            await api(`${API}/${editingId}`, { method: 'PUT', body: JSON.stringify({ ...v, id: editingId }) });
+        } else {
+            await api(API, { method: 'POST', body: JSON.stringify(v) });
+            state.page = 1;
+        }
         closeModal();
-        toast('Student added successfully.');
-        state.page = 1;
+        toast(editing ? 'Student updated.' : 'Student added successfully.');
         await refreshAll();
     } catch (err) {
         toast(err.message, 'error');
         if (/roll/i.test(err.message)) showErrors({ rollNumber: err.message });
         else if (/email/i.test(err.message)) showErrors({ email: err.message });
     } finally {
-        $('saveBtn').disabled = false; $('saveBtn').textContent = 'Save student';
+        btn.disabled = false;
+        btn.textContent = editing ? 'Update student' : 'Save student';
     }
+});
+
+/* ---------- Clock ---------- */
+function tickClock() {
+    const n = new Date();
+    $('clockDate').textContent = n.toLocaleDateString('en-GB', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    $('clockTime').textContent = n.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+}
+tickClock();
+setInterval(tickClock, 30000);
+
+/* ---------- Details panel ---------- */
+const detailRow = (icon, label, value) =>
+    `<div class="d-row"><span class="d-icon">${icon}</span><div><small>${label}</small><div class="d-val">${esc(value || '—')}</div></div></div>`;
+
+async function openDetails(id) {
+    try {
+        const s = await api(`${API}/${id}`);
+        const age = Math.floor((Date.now() - new Date(s.dateOfBirth)) / 31557600000);
+        const h = hue(s.fullName);
+        $('drawerBody').innerHTML = `
+      <div class="d-hero" style="background:linear-gradient(135deg,hsl(${h} 65% 48%),hsl(${(h + 50) % 360} 65% 38%))">
+        <div class="d-avatar">${esc(initials(s.fullName))}</div>
+        <h2>${esc(s.fullName)}</h2>
+        <p>${esc(s.rollNumber)} · ${esc(s.department)}</p>
+      </div>
+      <div class="d-list">
+        ${detailRow('📧', 'Email', s.email)}
+        ${detailRow('📱', 'Phone', s.phone)}
+        ${detailRow('🎂', 'Date of birth', fmtDate(s.dateOfBirth) + ' (' + age + ' years)')}
+        ${detailRow('📅', 'Enrolled on', fmtDate(s.enrollmentDate))}
+        ${detailRow('📍', 'Address', s.address)}
+      </div>
+      <div class="d-actions">
+        <button class="btn btn-primary" id="dEdit">✏️ Edit</button>
+        <button class="btn btn-danger" id="dDelete">🗑️ Delete</button>
+      </div>`;
+        $('dEdit').onclick = () => { closeDetails(); openModal(s); };
+        $('dDelete').onclick = () => askDelete(s.id, s.fullName);
+        $('drawer').classList.add('open');
+    } catch (err) { toast(err.message, 'error'); }
+}
+function closeDetails() { $('drawer').classList.remove('open'); }
+$('closeDrawer').onclick = closeDetails;
+$('drawerBackdrop').onclick = closeDetails;
+
+/* ---------- Delete with confirm ---------- */
+let deleteId = null;
+function askDelete(id, name) {
+    deleteId = id;
+    $('confirmText').innerHTML = `Are you sure you want to delete <b>${esc(name)}</b>? This cannot be undone.`;
+    $('confirmModal').classList.add('open');
+}
+function closeConfirm() { $('confirmModal').classList.remove('open'); deleteId = null; }
+$('confirmCancel').onclick = closeConfirm;
+$('confirmModal').onclick = e => { if (e.target === $('confirmModal')) closeConfirm(); };
+$('confirmDelete').onclick = async () => {
+    if (deleteId === null) return;
+    const btn = $('confirmDelete');
+    btn.disabled = true; btn.textContent = 'Deleting...';
+    try {
+        await api(`${API}/${deleteId}`, { method: 'DELETE' });
+        if (state.page > 1 && document.querySelectorAll('#rows tr[data-id]').length === 1) state.page--;
+        closeConfirm(); closeDetails();
+        toast('Student deleted.');
+        await refreshAll();
+    } catch (err) { toast(err.message, 'error'); }
+    finally { btn.disabled = false; btn.textContent = 'Yes, delete'; }
+};
+
+/* ---------- Row clicks ---------- */
+$('rows').addEventListener('click', async e => {
+    const btn = e.target.closest('.act');
+    if (btn) {
+        const id = Number(btn.dataset.id);
+        if (btn.dataset.action === 'edit') {
+            try { openModal(await api(`${API}/${id}`)); } catch (err) { toast(err.message, 'error'); }
+        } else {
+            askDelete(id, btn.dataset.name);
+        }
+        return;
+    }
+    const row = e.target.closest('tr[data-id]');
+    if (row) openDetails(Number(row.dataset.id));
+});
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeConfirm(); closeDetails(); }
 });
 
 /* ---------- Start ---------- */

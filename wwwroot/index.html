@@ -10,17 +10,25 @@
 </head>
 <body>
     <header class="topbar">
-        <div class="container topbar-inner">
-            <div class="brand">
-                <span class="brand-logo">🎓</span>
-                <div>
-                    <h1>Student Management</h1>
-                    <p>Add, search and manage your students</p>
+        <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span>
+        <div class="container hdr">
+            <nav class="nav">
+                <div class="brand">
+                    <span class="brand-logo">🎓</span>
+                    <span class="brand-name">Edu<b>Track</b></span>
                 </div>
-            </div>
-            <div class="topbar-actions">
-                <button id="themeBtn" class="icon-btn" title="Toggle theme">🌙</button>
-                <button id="addBtn" class="btn btn-light">+ Add Student</button>
+                <div class="topbar-actions">
+                    <div class="clock-chip"><span id="clockDate"></span><span id="clockTime"></span></div>
+                    <button id="themeBtn" class="icon-btn" title="Toggle theme">🌙</button>
+                </div>
+            </nav>
+            <div class="hero">
+                <div class="hero-text">
+                    <span class="pill"><i class="dot"></i> Live dashboard</span>
+                    <h1>Student <span class="grad">Management</span> System</h1>
+                    <p>Add, search, edit and track every student in one place.</p>
+                </div>
+                <button id="addBtn" class="btn btn-light btn-lg">+ Add Student</button>
             </div>
         </div>
     </header>
@@ -66,6 +74,7 @@
                             <th>Department</th>
                             <th>Phone</th>
                             <th>Enrolled</th>
+                            <th style="text-align:right">Actions</th>
                         </tr>
                     </thead>
                     <tbody id="rows"></tbody>
@@ -144,6 +153,27 @@
         </div>
     </div>
 
+    <!-- Details panel -->
+    <div id="drawer" class="drawer">
+        <div class="drawer-backdrop" id="drawerBackdrop"></div>
+        <div class="drawer-panel">
+            <button class="icon-btn plain drawer-close" id="closeDrawer" type="button">✕</button>
+            <div id="drawerBody"></div>
+        </div>
+    </div>
+
+    <!-- Delete confirm -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-box confirm-box">
+            <div class="confirm-icon">🗑️</div>
+            <h2>Delete student?</h2>
+            <p id="confirmText"></p>
+            <div class="modal-foot center">
+                <button class="btn btn-ghost" id="confirmCancel" type="button">Cancel</button>
+                <button class="btn btn-danger" id="confirmDelete" type="button">Yes, delete</button>
+            </div>
+        </div>
+    </div>
     <div id="toasts" class="toasts"></div>
 
     <script src="js/app.js"></script>
