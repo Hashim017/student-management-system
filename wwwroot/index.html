@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <span class="brand-logo">🎓</span>
+                <div>
+                    <h1>Student Management</h1>
+                    <p>Add, search and manage your students</p>
+                </div>
+            </div>
+            <div class="topbar-actions">
+                <button id="themeBtn" class="icon-btn" title="Toggle theme">🌙</button>
+                <button id="addBtn" class="btn btn-light">+ Add Student</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="stats">
+            <div class="card stat">
+                <div class="stat-icon blue">👥</div>
+                <div><span id="statTotal" class="stat-num">0</span><span class="stat-label">Total students</span></div>
+            </div>
+            <div class="card stat">
+                <div class="stat-icon green">✨</div>
+                <div><span id="statNew" class="stat-num">0</span><span class="stat-label">Joined this month</span></div>
+            </div>
+            <div class="card stat">
+                <div class="stat-icon purple">🏛️</div>
+                <div><span id="statDept" class="stat-num">0</span><span class="stat-label">Departments</span></div>
+            </div>
+        </section>
+
+        <section class="chips" id="chips"></section>
+
+        <section class="card table-card">
+            <div class="toolbar">
+                <div class="search">
+                    <span>🔍</span>
+                    <input id="searchInput" type="text" placeholder="Search by name, roll number or email...">
+                </div>
+                <select id="deptFilter"><option value="">All departments</option></select>
+                <select id="sortBy">
+                    <option value="name">Sort: Name</option>
+                    <option value="roll">Sort: Roll number</option>
+                    <option value="newest">Sort: Newest</option>
+                </select>
+            </div>
+
+            <div class="table-wrap">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Student</th>
+                            <th>Roll No</th>
+                            <th>Department</th>
+                            <th>Phone</th>
+                            <th>Enrolled</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+                <div id="empty" class="empty hidden">
+                    <div class="empty-icon">📭</div>
+                    <h3>No students found</h3>
+                    <p>Try a different search, or add a new student.</p>
+                    <button class="btn btn-primary" id="emptyAddBtn">+ Add Student</button>
+                </div>
+            </div>
+
+            <div class="pagination">
+                <span id="pageInfo"></span>
+                <div id="pageBtns" class="page-btns"></div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Add student modal -->
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <div class="modal-head">
+                <h2 id="modalTitle">Add Student</h2>
+                <button class="icon-btn plain" id="closeModal" type="button">✕</button>
+            </div>
+            <form id="studentForm" novalidate>
+                <div class="form-grid">
+                    <div class="field">
+                        <label for="f_fullName">Full name *</label>
+                        <input id="f_fullName" maxlength="100" placeholder="Ali Khan">
+                        <small class="error" data-err="fullName"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_rollNumber">Roll number *</label>
+                        <input id="f_rollNumber" maxlength="30" placeholder="CS-001">
+                        <small class="error" data-err="rollNumber"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_email">Email *</label>
+                        <input id="f_email" type="email" maxlength="150" placeholder="ali@example.com">
+                        <small class="error" data-err="email"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_phone">Phone</label>
+                        <input id="f_phone" maxlength="20" placeholder="0300 1234567">
+                        <small class="error" data-err="phone"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_department">Department *</label>
+                        <input id="f_department" list="deptList" maxlength="100" placeholder="Computer Science">
+                        <datalist id="deptList"></datalist>
+                        <small class="error" data-err="department"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_dateOfBirth">Date of birth *</label>
+                        <input id="f_dateOfBirth" type="date">
+                        <small class="error" data-err="dateOfBirth"></small>
+                    </div>
+                    <div class="field">
+                        <label for="f_enrollmentDate">Enrollment date *</label>
+                        <input id="f_enrollmentDate" type="date">
+                        <small class="error" data-err="enrollmentDate"></small>
+                    </div>
+                    <div class="field full">
+                        <label for="f_address">Address</label>
+                        <textarea id="f_address" rows="2" maxlength="250" placeholder="Street, city"></textarea>
+                        <small class="error" data-err="address"></small>
+                    </div>
+                </div>
+                <div class="modal-foot">
+                    <button type="button" class="btn btn-ghost" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="saveBtn">Save student</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="toasts" class="toasts"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
