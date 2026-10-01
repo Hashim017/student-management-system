@@ -42,7 +42,15 @@ Built for Auspify Internship Task 2.
 
 ## Screenshots
 
-Add screenshots here.
+![Dashboard](screenshots/home.png)
+
+![Students List](screenshots/students-data.png)
+
+![Student Details](screenshots/student-details-card.png)
+
+![Edit Student](screenshots/edit-card.png)
+
+![Delete Confirmation](screenshots/delete-popup.png)
 
 ## Author
 
