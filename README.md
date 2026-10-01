@@ -34,7 +34,7 @@ Built for Auspify Internship Task 2.
 ## How to Run
 
 1. Clone the repo:
-   `git clone https://github.com/Hashim017/YOUR-REPO-NAME.git`
+   `git clone https://github.com/Hashim017/student-management-system.git`
 2. Open the `.sln` file in Visual Studio.
 3. In `appsettings.json`, set your SQL Server connection string.
 4. Open Package Manager Console and run `Update-Database`.
