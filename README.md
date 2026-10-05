@@ -84,8 +84,6 @@ The application is fully responsive and optimized for desktop and mobile devices
 
 <img src="docs/screenshots/dashboard-mobile.PNG" alt="Dashboard Mobile" width="300">
 
-<img src="docs/screenshots/dashboard2-mobile.PNG" alt="Dashboard 2 Mobile" width="300">
-
 
 ### Mobile Student Management
 
