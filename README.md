@@ -49,13 +49,13 @@ A clean system to manage student records, backed by a REST API. It was built as 
 ### Dashboard
 
 #### Dashboard - Light
-<img src="docs/screenshots/dashboard-light.png" alt="Dashboard Light" width="600">
+<img src="docs/screenshots/dashboard-light.PNG" alt="Dashboard Light" width="600">
 
 #### Dashboard - Dark
 <img src="docs/screenshots/dashboard-dark.png" alt="Dashboard Dark" width="600">
 
 #### Dashboard - Additional View
-<img src="docs/screenshots/dashboard2-light.png" alt="Dashboard 2 Light" width="600">
+<img src="docs/screenshots/dashboard2-light.PNG" alt="Dashboard 2 Light" width="600">
 
 
 ### Student Management
@@ -67,7 +67,7 @@ A clean system to manage student records, backed by a REST API. It was built as 
 <img src="docs/screenshots/student-details-card.png" alt="Student Details" width="600">
 
 #### Update Student - Light
-<img src="docs/screenshots/update-student-card-light.png" alt="Update Student Light" width="600">
+<img src="docs/screenshots/update-student-card-light.PNG" alt="Update Student Light" width="600">
 
 #### Update Student - Dark
 <img src="docs/screenshots/update-student-card-dark.png" alt="Update Student Dark" width="600">
@@ -82,18 +82,18 @@ The application is fully responsive and optimized for desktop and mobile devices
 
 ### Mobile Dashboard
 
-<img src="docs/screenshots/dashboard-mobile.png" alt="Dashboard Mobile" width="300">
+<img src="docs/screenshots/dashboard-mobile.PNG" alt="Dashboard Mobile" width="300">
 
-<img src="docs/screenshots/dashboard2-mobile.png" alt="Dashboard 2 Mobile" width="300">
+<img src="docs/screenshots/dashboard2-mobile.PNG" alt="Dashboard 2 Mobile" width="300">
 
 
 ### Mobile Student Management
 
-<img src="docs/screenshots/students-data-mobile.png" alt="Students Data Mobile" width="300">
+<img src="docs/screenshots/students-data-mobile.PNG" alt="Students Data Mobile" width="300">
 
-<img src="docs/screenshots/student-details-card-mobile.png" alt="Student Details Mobile" width="300">
+<img src="docs/screenshots/student-details-card-mobile.PNG" alt="Student Details Mobile" width="300">
 
-<img src="docs/screenshots/update-student-card-mobile.png" alt="Update Student Mobile" width="300">
+<img src="docs/screenshots/update-student-card-mobile.PNG" alt="Update Student Mobile" width="300">
 
 ## ⚙️ Getting Started
 
