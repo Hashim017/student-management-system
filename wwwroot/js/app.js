@@ -340,5 +340,14 @@ document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { closeConfirm(); closeDetails(); }
 });
 
+/* ---------- Responsive search placeholder ---------- */
+function fitPlaceholder() {
+    $('searchInput').placeholder = window.innerWidth > 700
+        ? 'Search by name, roll number or email...'
+        : 'Search students...';
+}
+fitPlaceholder();
+window.addEventListener('resize', fitPlaceholder);
+
 /* ---------- Start ---------- */
 refreshAll();

@@ -1146,3 +1146,165 @@ main.container {
     margin-top: 0;
     padding-top: 36px;
 }
+
+/* ===== Responsive fixes ===== */
+.nav {
+    flex-wrap: nowrap;
+}
+
+.topbar-actions {
+    flex-shrink: 0;
+}
+
+.icon-btn {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    line-height: 1;
+}
+
+.brand {
+    min-width: 0;
+}
+
+.brand-name {
+    white-space: nowrap;
+}
+
+/* Search bar */
+.search {
+    min-width: 0;
+}
+
+    .search input {
+        min-width: 0;
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+
+        .search input::placeholder {
+            color: var(--muted);
+            opacity: .8;
+            text-overflow: ellipsis;
+        }
+
+    .search > span {
+        flex-shrink: 0;
+    }
+
+@media (max-width: 700px) {
+    .container {
+        padding: 0 14px;
+    }
+
+    .toolbar {
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .search {
+        flex: 1 1 100%;
+        min-width: 0;
+    }
+
+    .toolbar select {
+        flex: 1 1 calc(50% - 5px);
+        min-width: 0;
+        width: 100%;
+        text-overflow: ellipsis;
+    }
+
+    .btn-lg {
+        width: 100%;
+    }
+
+    .hero {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+
+@media (max-width: 400px) {
+    .brand-name {
+        font-size: 16px;
+    }
+
+    .brand-logo {
+        width: 36px;
+        height: 36px;
+        font-size: 18px;
+    }
+
+    .toolbar select {
+        flex: 1 1 100%;
+    }
+}
+
+/* ===== Center theme button icon ===== */
+#themeBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,.3);
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+    /* ===== Theme button: centered, never tilted ===== */
+    #themeBtn,
+    #themeBtn:hover,
+    #themeBtn:active,
+    #themeBtn:focus {
+        transform: none !important;
+        rotate: 0deg !important;
+    }
+
+#themeBtn {
+    -webkit-appearance: none;
+    appearance: none;
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    max-width: 40px;
+    flex: 0 0 40px;
+    padding: 0;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1;
+    font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+    text-align: center;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+/* Hover color only on devices that really have a mouse */
+@media (hover: hover) {
+    #themeBtn:hover {
+        background: rgba(255,255,255,.3);
+    }
+}
+
+@media (hover: none) {
+    #themeBtn:hover {
+        background: rgba(255,255,255,.18);
+    }
+}
+
+#themeBtn:active {
+    background: rgba(255,255,255,.35);
+}

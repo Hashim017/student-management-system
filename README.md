@@ -1,58 +1,113 @@
-# Student Management System
+﻿<div align="center">
 
-A full-stack web app to add, view, update and delete student records.
-Built for Auspify Internship Task 2.
+# 🎓 Student Management System
 
-## Features
+**A full-stack app to add, view, update and delete student records.**
 
-- Add a new student
-- View all students
-- Update student details
-- Delete a student
-- Form validation
-- REST API for all student actions
-- Responsive layout
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-512BD4?logo=dotnet&logoColor=white)
+![C#](https://img.shields.io/badge/C%23-239120?logo=csharp&logoColor=white)
+![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?logo=microsoftsqlserver&logoColor=white)
 
-## Tech Stack
+</div>
 
-- ASP.NET Core
-- C#
-- SQL Server
-- Entity Framework Core
-- HTML, CSS, JavaScript
+## 📑 Table of Contents
 
-## API Endpoints
+- [About](#-about)
+- [Features](#-features)
+- [API Reference](#-api-reference)
+- [Screenshots](#-screenshots)
+- [Getting Started](#-getting-started)
+- [Author](#-author)
 
-| Method | Endpoint | What it does |
-|--------|----------|--------------|
-| GET | /api/students | Get all students |
-| GET | /api/students/{id} | Get one student |
-| POST | /api/students | Add a student |
-| PUT | /api/students/{id} | Update a student |
-| DELETE | /api/students/{id} | Delete a student |
+## 📖 About
 
-## How to Run
+A clean system to manage student records, backed by a REST API. It was built as Task 2 of the Auspify internship. The database comes with 24 sample students so you can test it right away.
 
-1. Clone the repo:
-   `git clone https://github.com/Hashim017/student-management-system.git`
-2. Open the `.sln` file in Visual Studio.
-3. In `appsettings.json`, set your SQL Server connection string.
-4. Open Package Manager Console and run `Update-Database`.
-5. Press Ctrl+F5.
+## 🚀 Features
 
-## Screenshots
+| Feature | Description |
+|---|---|
+| Add students | Create a new student record |
+| View students | See the full list or one student |
+| Update students | Edit any student detail |
+| Delete students | Remove a record |
+| REST API | Every action is available as an endpoint |
+| Sample data | 24 seeded students |
 
-![Dashboard](screenshots/home.png)
+## 🔌 API Reference
 
-![Students List](screenshots/students-data.png)
+| Method | Endpoint | Action |
+|---|---|---|
+| GET | `/api/students` | Get all students |
+| GET | `/api/students/{id}` | Get one student |
+| POST | `/api/students` | Add a student |
+| PUT | `/api/students/{id}` | Update a student |
+| DELETE | `/api/students/{id}` | Delete a student |
 
-![Student Details](screenshots/student-details-card.png)
+## 🖼 Screenshots
 
-![Edit Student](screenshots/edit-card.png)
+### Dashboard
 
-![Delete Confirmation](screenshots/delete-popup.png)
+#### Dashboard - Light
+<img src="docs/screenshots/dashboard-light.png" alt="Dashboard Light" width="600">
 
-## Author
+#### Dashboard - Dark
+<img src="docs/screenshots/dashboard-dark.png" alt="Dashboard Dark" width="600">
 
-Muhammad Hashim
-GitHub: [Hashim017](https://github.com/Hashim017)
+#### Dashboard - Additional View
+<img src="docs/screenshots/dashboard2-light.png" alt="Dashboard 2 Light" width="600">
+
+
+### Student Management
+
+#### Students Data
+<img src="docs/screenshots/students-data.png" alt="Students Data" width="600">
+
+#### Student Details
+<img src="docs/screenshots/student-details-card.png" alt="Student Details" width="600">
+
+#### Update Student - Light
+<img src="docs/screenshots/update-student-card-light.png" alt="Update Student Light" width="600">
+
+#### Update Student - Dark
+<img src="docs/screenshots/update-student-card-dark.png" alt="Update Student Dark" width="600">
+
+#### Delete Student
+<img src="docs/screenshots/delete-popup.png" alt="Delete Student" width="600">
+
+
+## Responsive Design
+
+The application is fully responsive and optimized for desktop and mobile devices.
+
+### Mobile Dashboard
+
+<img src="docs/screenshots/dashboard-mobile.png" alt="Dashboard Mobile" width="300">
+
+<img src="docs/screenshots/dashboard2-mobile.png" alt="Dashboard 2 Mobile" width="300">
+
+
+### Mobile Student Management
+
+<img src="docs/screenshots/students-data-mobile.png" alt="Students Data Mobile" width="300">
+
+<img src="docs/screenshots/student-details-card-mobile.png" alt="Student Details Mobile" width="300">
+
+<img src="docs/screenshots/update-student-card-mobile.png" alt="Update Student Mobile" width="300">
+
+## ⚙️ Getting Started
+
+**You need:** .NET SDK 9 and SQL Server LocalDB.
+
+```bash
+git clone https://github.com/Hashim017/student-management-system.git
+cd student-management-system
+dotnet restore
+dotnet run
+```
+
+Open the URL shown in the terminal.
+
+## 👤 Author
+
+**Muhammad Hashim** - [GitHub](https://github.com/Hashim017)
